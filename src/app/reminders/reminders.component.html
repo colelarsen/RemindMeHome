@@ -1,0 +1,17 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div class="card border border-primary">
+                <div class="card-header bg-primary text-light">
+                    Reminders
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let reminder of reminders">
+                        <app-reminder [reminder]="reminder" (updateReminderEmitter) = "getReminders()"></app-reminder>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
