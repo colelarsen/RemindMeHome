@@ -37,7 +37,7 @@ export class RemindersComponent implements OnInit {
     this.getReminders();
   }
 
-  private addReminder() {
+  public addReminder() {
     console.log("here");
     
     let timestamp = new Date(this.reminderForm.value.date).getTime();
@@ -57,7 +57,7 @@ export class RemindersComponent implements OnInit {
     );
   }
 
-  private getReminders() {
+  public getReminders() {
     this.reminderService.getReminders().subscribe(
       res => {
         let reqs = Object.keys(res);
