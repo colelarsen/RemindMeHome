@@ -8,13 +8,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReminderComponent } from './reminder/reminder.component';
 import { ReminderEditComponent } from './reminder-edit/reminder-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { YugiohScraperComponent } from './yugioh-scraper/yugioh-scraper.component';
+import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RemindersComponent,
     ReminderComponent,
-    ReminderEditComponent
+    ReminderEditComponent,
+    HomeComponent,
+    YugiohScraperComponent,
+    ResumeComponent
   ],
   imports: [
     BrowserModule,
