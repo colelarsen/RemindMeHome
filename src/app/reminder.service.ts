@@ -14,7 +14,7 @@ export class ReminderService {
   }
 
   public deleteReminder(reminder:Reminder) {
-    return this.http.post("http://remindmehome.com/reminders/", reminder);
+    return this.http.post("http://remindmehome.com/reminders/delete/", reminder);
   }
 
   public addReminder(reminder:Reminder) {
