@@ -22,8 +22,8 @@
             </div>
             <div class="text-center">
                 <p>This website and all custom functionality was developed entirely by me. The webserver hosting this website
-                    is a nginx server running on an AWS EC2 server. The front end of this website was made using Angular with Bootstrap.
-                    The page you are currently seeing has no backend but you can check out the
+                    is a nginx server running on an AWS EC2 server. The front end of this website was made using Angular
+                    with Bootstrap. The page you are currently seeing has no backend but you can check out the
                     <a class="nav-item" routerLink="reminder">Reminders</a>
                     page if you want to see a microservice in action. This page is also mobile friendly!</p>
             </div>
@@ -38,10 +38,12 @@
                         <li>Node</li>
                         <li>TypeScript</li>
                         <li>JavaScript</li>
-                        <li>Firebase</li>
                         <li>NoSQL</li>
                         <li>Express.js</li>
                         <li>Discord.js</li>
+                        <li>Spring Boot</li>
+                        <li>DynamoDB</li>
+                        <li>AWS</li>
                     </ul>
                 </div>
             </div>
@@ -71,9 +73,10 @@
             <div class="row">
                 The "Reminders" page was made for a microservice that I developed. This page allows users of a group chat to submit and edit
                 reminders. The microservice that handles these requests is hosted on the same EC2 server that this webserver
-                is running on. The microservice handles the requests and interacts with a Firebase NoSQL database. The users
+                is running on. The microservice handles the requests and interacts with a DynamoDB NoSQL database. The users
                 are reminded by a chat bot created with discord.js. The chat bot interacts with the same microservice to
-                request reminders and when the time expires it sends the user a message and deletes the reminder!
+                request reminders and when the time expires it sends the user a message and deletes the reminder! The microservice
+                is a Spring Boot application that validates and secures requests.
             </div>
             <br>
             <div class="row">
@@ -82,10 +85,11 @@
                 </div>
             </div>
             <div class="row">
-                <p>The "Yugioh Scraper" page was made so that you can check out a personal project I made in early 2019.
-                    I converted the project into a microservice so that it is interactable without having to download the project from github.
-                    This project solves the issue of trying to find pdfs of a card by allowing users to enter card names and download them straight to their computer.
-                    The microservice was made using Express and it uses web scraping to find links to pdfs!
+                <p>The "Yugioh Scraper" page was made so that you can check out a personal project I made in early 2019. I converted
+                    the project into a microservice so that it is interactable without having to download the project from
+                    github. This project solves the issue of trying to find pdfs of a card by allowing users to enter card
+                    names and download them straight to their computer. The microservice was made using Express and it uses
+                    web scraping to find links to pdfs!
                 </p>
             </div>
         </div>
