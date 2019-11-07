@@ -7,7 +7,7 @@
     </div>
     <br>
     <div class="row">
-        <div>
+        <div class="col-9">
             <div class="form-group">
                 <label>Card Name</label>
             </div>
@@ -20,6 +20,11 @@
             <div class="form-group">
                 <button class="btn btn-primary" (click)="submitCards()">Submit</button>
             </div>
+        </div>
+        <div class="col-3 text-right">
+            <p>This was made for people who want to see the pdfs of specific cards, if you want to test and don't know any cards
+                try: Dark Magician, Pot of Greed, Cyber Dragon. You can load multiple cards at once and click on them to
+                make them bigger.</p>
         </div>
     </div>
     <div class="row" *ngIf="cardImages">

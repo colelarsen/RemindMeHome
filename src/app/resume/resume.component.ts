@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ResumeComponent implements OnInit {
 
   show:boolean[] = []; 
-  imgDown:String = "./../../assets/arrow.svg";
-  imgRight:String = "./../../assets/arrowRight.svg";
+  imgDown:String = "./../../assets/arrowRight.svg";
+  imgRight:String = "./../../assets/arrow.svg";
   showImage:String[] = [this.imgDown, this.imgDown, this.imgDown]; 
   
 

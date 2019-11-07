@@ -11,7 +11,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 })
 export class RemindersComponent implements OnInit {
 
-  errMessage: string;
+  errMessage: string = "";
 
   reminders: Reminder[];
 
@@ -19,7 +19,7 @@ export class RemindersComponent implements OnInit {
   date;
   time;
 
-  reminderToAdd: Reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined);
+  reminderToAdd: Reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined);
 
   reminderForm: FormGroup;
 
@@ -37,9 +37,7 @@ export class RemindersComponent implements OnInit {
     this.getReminders();
   }
 
-  public addReminder() {
-    console.log("here");
-    
+  public addReminder() {    
     let timestamp = new Date(this.reminderForm.value.date).getTime();
     let timeSplit = this.reminderForm.value.time.split(':');
     timestamp += timeSplit[0] * 3600000 + timeSplit[1] * 60000 + 3600000 * 4;
@@ -48,10 +46,12 @@ export class RemindersComponent implements OnInit {
     this.reminderService.addReminder(this.reminderToAdd).subscribe(
       res => {
         console.log(res);
+        this.addReminderBtn = false;
+        this.errMessage = "";
         this.getReminders();
       },
       err => {
-        console.log(err);
+        this.errMessage = "Failed to add reminder: " + err.error.failureMessage;
         this.getReminders();
       }
     );
@@ -72,5 +72,18 @@ export class RemindersComponent implements OnInit {
         this.errMessage = err.message;
       }
     );
+  }
+
+  updateReminderEvent(event)
+  {
+    if(event.length > 0)
+    {
+      this.errMessage = event;
+    }
+    else
+    {
+      this.errMessage = "";
+      this.getReminders();
+    }
   }
 }

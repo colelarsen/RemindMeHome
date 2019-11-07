@@ -11,7 +11,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 export class ReminderComponent implements OnInit {
 
   @Input() reminder: Reminder;
-  @Output() updateReminderEmitter: EventEmitter<number> = new EventEmitter<number>();
+  @Output() updateReminderEmitter: EventEmitter<String> = new EventEmitter<String>();
   showEdit: boolean = false;
   reminderForm: FormGroup;
 
@@ -25,10 +25,10 @@ export class ReminderComponent implements OnInit {
   deleteReminder() {
     this.reminderService.deleteReminder(this.reminder).subscribe(
       res => {
-        this.updateReminderEmitter.emit(1);
+        this.updateReminderEmitter.emit("");
       },
       err => {
-        this.updateReminderEmitter.emit(1);
+        this.updateReminderEmitter.emit(err.error.failureMessage);
         console.log(err);
       }
     );
@@ -46,15 +46,16 @@ export class ReminderComponent implements OnInit {
 
     this.reminderService.updateReminder(newReminder).subscribe(
       res => {
-        this.updateReminderEmitter.emit(1);
+        this.updateReminderEmitter.emit("");
       },
       err => {
-        console.log(err);
+        this.updateReminderEmitter.emit(err.error.failureMessage);
       }
     );
   }
 
   ngOnInit() {
+    this.info = this.reminder.info;    
     this.reminderForm = new FormGroup({
       'info': new FormControl(this.info, [Validators.required]),
       'date': new FormControl(this.date, [Validators.required]),

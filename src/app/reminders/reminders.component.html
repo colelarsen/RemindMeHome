@@ -48,8 +48,11 @@
                             </form>
                         </div>
                     </div>
+                    <div class = "text-center text-danger" *ngIf="errMessage.length>0">
+                        <p>{{errMessage}}</p>
+                    </div>
                     <div *ngFor="let reminder of reminders">
-                        <app-reminder [reminder]="reminder" (updateReminderEmitter)="getReminders()"></app-reminder>
+                        <app-reminder [reminder]="reminder" (updateReminderEmitter)="updateReminderEvent($event)"></app-reminder>
                     </div>
                 </div>
             </div>
