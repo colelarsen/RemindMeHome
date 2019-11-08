@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { YugiohScraperComponent } from './yugioh-scraper/yugioh-scraper.component';
 import { ResumeComponent } from './resume/resume.component';
+import { DatePipe } from '../../node_modules/@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ResumeComponent } from './resume/resume.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
