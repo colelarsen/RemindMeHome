@@ -12,8 +12,8 @@ export class ReminderService {
   {
     const publicWeb = "http://remindmehome.com/reminders/";
     const localWeb = "http://localhost:3050/";
-    return localWeb;
-    // return publicWeb;
+    // return localWeb;
+    return publicWeb;
   }
   
 
