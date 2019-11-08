@@ -1,8 +1,5 @@
 
-input.ng-valid{
-    border-left: 1px solid green;
-}
-
-input.ng-invalid{
-    border-left: 1px solid red;
+.thumbnail {
+    max-height: 50%;
+    max-width: 50%;
 }

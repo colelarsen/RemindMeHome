@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reminder } from '../models/Reminder';
 import { ReminderService } from '../reminder.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 
 @Component({
@@ -16,45 +16,11 @@ export class RemindersComponent implements OnInit {
   reminders: Reminder[];
 
   addReminderBtn: boolean = false;
-  date;
-  time;
-
-  reminderToAdd: Reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined);
-
-  reminderForm: FormGroup;
 
   constructor(private reminderService: ReminderService) { }
 
   ngOnInit() {
-    this.reminderForm = new FormGroup({
-      'info': new FormControl(this.reminderToAdd.info, [Validators.required]),
-      'username': new FormControl(this.reminderToAdd.info, [Validators.required]),
-      'userId': new FormControl(this.reminderToAdd.info, []),
-      'attachment': new FormControl(this.reminderToAdd.info, []),
-      'date': new FormControl(this.date, [Validators.required]),
-      'time': new FormControl(this.time, [Validators.required])
-    });
     this.getReminders();
-  }
-
-  public addReminder() {    
-    let timestamp = new Date(this.reminderForm.value.date).getTime();
-    let timeSplit = this.reminderForm.value.time.split(':');
-    timestamp += timeSplit[0] * 3600000 + timeSplit[1] * 60000 + 3600000 * 4;
-    this.reminderToAdd.timestamp = timestamp;
-
-    this.reminderService.addReminder(this.reminderToAdd).subscribe(
-      res => {
-        console.log(res);
-        this.addReminderBtn = false;
-        this.errMessage = "";
-        this.getReminders();
-      },
-      err => {
-        this.errMessage = "Failed to add reminder: " + err.error.failureMessage;
-        this.getReminders();
-      }
-    );
   }
 
   public getReminders() {
@@ -64,7 +30,6 @@ export class RemindersComponent implements OnInit {
         this.reminders = [];
         reqs.forEach(key => {
           let req: Reminder = res[key];
-          req.key = key;
           this.reminders.push(req);
         })
       },
@@ -74,14 +39,22 @@ export class RemindersComponent implements OnInit {
     );
   }
 
-  updateReminderEvent(event)
-  {
-    if(event.length > 0)
-    {
+  updateReminderEvent(event) {
+    if (event.length > 0) {
       this.errMessage = event;
     }
-    else
-    {
+    else {
+      this.errMessage = "";
+      this.getReminders();
+    }
+  }
+
+  addReminderEvent(event) {
+    if (event.length > 0) {
+      this.errMessage = event;
+    }
+    else {
+      this.addReminderBtn = false;
       this.errMessage = "";
       this.getReminders();
     }

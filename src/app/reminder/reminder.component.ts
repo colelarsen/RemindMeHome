@@ -12,8 +12,11 @@ export class ReminderComponent implements OnInit {
 
   @Input() reminder: Reminder;
   @Output() updateReminderEmitter: EventEmitter<String> = new EventEmitter<String>();
+
   showEdit: boolean = false;
   reminderForm: FormGroup;
+  usernameForDeletion:string = "";
+
 
   info: string;
   date: Date;
@@ -21,37 +24,30 @@ export class ReminderComponent implements OnInit {
 
 
   constructor(private reminderService: ReminderService) { }
-
-  deleteReminder() {
+  deleteReminder(username) {
+    this.reminder.username = username;
     this.reminderService.deleteReminder(this.reminder).subscribe(
       res => {
         this.updateReminderEmitter.emit("");
       },
       err => {
+        console.log(err.error.failureMessage);
         this.updateReminderEmitter.emit(err.error.failureMessage);
-        console.log(err);
       }
     );
   }
 
-  updateReminder() {
-    // console.log(this.reminderForm.value);
-    let timestamp = new Date(this.reminderForm.value.date).getTime();
-    let timeSplit = this.reminderForm.value.time.split(':');
-    timestamp += timeSplit[0] * 3600000 + timeSplit[1] * 60000 + 3600000 * 4;
-
-    let newReminder = { ...this.reminder };
-    newReminder.info = this.reminderForm.value.info;
-    newReminder.timestamp = timestamp;
-
-    this.reminderService.updateReminder(newReminder).subscribe(
-      res => {
-        this.updateReminderEmitter.emit("");
-      },
-      err => {
-        this.updateReminderEmitter.emit(err.error.failureMessage);
-      }
-    );
+  updateReminderEvent(event)
+  {
+    if(event.length == 0)
+    {
+      this.showEdit = false;
+      this.updateReminderEmitter.emit(event);
+    }
+    else
+    {
+      this.updateReminderEmitter.emit(event);
+    }
   }
 
   ngOnInit() {
