@@ -28,7 +28,7 @@ export class ReminderEditComponent implements OnInit {
       this.reminderForm = new FormGroup({
         'info': new FormControl(this.reminder.info, [Validators.required]),
         'username': new FormControl(this.reminder.info, [Validators.required]),
-        'userId': new FormControl(this.reminder.info, []),
+        'userId': new FormControl(this.reminder.info, [Validators.required]),
         'attachment': new FormControl(this.reminder.info, []),
         'date': new FormControl(this.date, [Validators.required]),
         'time': new FormControl(this.time, [Validators.required])
