@@ -1,0 +1,35 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div class="card border border-primary">
+                <div class="card-header bg-primary text-light">
+                    Reminders
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <p>Reminders have to have a username and user id. You can post/edit reminders without a valid username
+                            but they will not be sent to an invalid user id / username pair. This is to allow people who
+                            want to test the web api to be able to change the database without effecting regular users. Attachment
+                            is an optional field for urls, not uploading images.</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" (click)="addReminderBtn = !addReminderBtn">Add Reminder</button>
+                    </div>
+                    <div *ngIf="addReminderBtn">
+                        <div>
+                            <app-reminder-edit (updateReminderEmitter)="addReminderEvent($event)"></app-reminder-edit>
+                        </div>
+                    </div>
+                    <div class="text-center text-danger" *ngIf="errMessage.length>0">
+                        <p>{{errMessage}}</p>
+                    </div>
+                    <div *ngFor="let reminder of reminders">
+                        <app-reminder [reminder]="reminder" (updateReminderEmitter)="updateReminderEvent($event)"></app-reminder>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
