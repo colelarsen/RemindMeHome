@@ -13,8 +13,8 @@ export class UserService {
   private getCurWeb(): string {
     const publicWeb = "http://remindmehome.com/users/";
     const localWeb = "http://localhost:3050/";
-    return localWeb;
-    // return publicWeb;
+    // return localWeb;
+    return publicWeb;
   }
 
   private user: User;
