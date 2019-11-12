@@ -38,6 +38,7 @@ export class ReminderComponent implements OnInit {
 
   canEditDelete()
   {
+    console.log(this.reminder.ownerUsername, this.user.username, this.userService.isLoggedIn());
     return this.reminder.ownerUsername == this.user.username && this.userService.isLoggedIn();
   }
 

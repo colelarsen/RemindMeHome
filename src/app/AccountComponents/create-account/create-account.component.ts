@@ -13,7 +13,7 @@ import * as CryptoJS from 'crypto-js';
 export class CreateAccountComponent implements OnInit {
 
   constructor(private userService: UserService, private router:Router) { }
-
+  SALT = "LFJKGSjsakf";
   password: string;
   password2: string;
   username: string;
@@ -42,7 +42,7 @@ export class CreateAccountComponent implements OnInit {
       }
       else {
         this.errMessage = undefined;
-        var passwordEncrypted = CryptoJS.MD5(this.password).toString();
+        var passwordEncrypted = CryptoJS.MD5(this.password).toString() + this.SALT;
         var user = new User(this.username, undefined, passwordEncrypted, this.reminderUsername, this.reminderUserId, undefined);
         this.userService.createAccount(user)
           .subscribe(

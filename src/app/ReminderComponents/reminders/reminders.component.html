@@ -1,7 +1,7 @@
 <div class="container">
     <br>
     <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-md-10 offset-md-1">
             <div class="card border border-primary">
                 <div class="card-header bg-primary text-light">
                     Reminders
@@ -14,10 +14,13 @@
                             must have the Auth Key assigned to the user upon logging in. This key is stored in local storage
                             for ease of access. If they log in on another device the old key becomes invalid and will log
                             them out when used. The account page is also auth protected with this Auth Key.</p>
-                        <p>Account passwords are MD5 encrypted with a salt so the hash is non reversable. These hashes are only
-                            sent to the microservice and are never sent back to the client. This ensures if there was ever
-                            a data leak the password itself would never be revealed, though the account on this site would
-                            still be compromised.</p>
+                        <p>Account passwords are MD5 encrypted (a non reversable hash function) with a salt. This ensures if
+                            there was ever a data leak the password itself would never be revealed, as it is not stored anywhere,
+                            though the account on this site would still be compromised. The salt protects from other data
+                            leaks by adding some randomness to the password that is stored, preventing Rainbow Tables (lookup
+                            tables). These hashes are only sent to the microservice on login and account creation and are never
+                            sent back to the client. All other actions are authorized by using the Auth Key provided to the
+                            user on login.</p>
                     </div>
                     <div>
                         <button class="btn btn-primary" [disabled]="addReminderDisabled()" (click)="addReminderBtn = !addReminderBtn">Add Reminder</button>

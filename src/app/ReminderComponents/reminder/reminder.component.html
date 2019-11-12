@@ -4,12 +4,12 @@
     <div class="col-3">
         <img class="thumbnail" *ngIf="reminder.attachment != undefined && reminder.attachment != null" [src]="reminder.attachment">
     </div>
-    <div class="col-3 my-auto">
+    <div class="col-md-3 my-auto">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 text-center">
                 <button class="btn btn-primary" [disabled]="!canEditDelete()" (click)="showEdit = !showEdit">Edit</button>
             </div>
-            <div class="col-6">
+            <div class="col-6 text-center">
                 <button class="btn btn-primary" [disabled]="!canEditDelete()" data-toggle="modal" [attr.data-target]="'#deleteModal'+reminder.id">Delete</button>
             </div>
         </div>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="row" *ngIf="showEdit">
-    <div class="col-6">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header">Edit Reminder</div>
             <div class="card-body">

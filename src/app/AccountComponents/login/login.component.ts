@@ -11,6 +11,7 @@ import { Router } from '../../../../node_modules/@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  SALT = "LFJKGSjsakf";
   errMessage: string;
   username: string;
   password: string;
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    var passwordEncrypted = CryptoJS.MD5(this.password).toString();
+    var passwordEncrypted = CryptoJS.MD5(this.password).toString() + this.SALT;
     this.password = undefined;
     this.userService.login(new User(this.username, undefined, passwordEncrypted, undefined, undefined, undefined))
       .subscribe(
