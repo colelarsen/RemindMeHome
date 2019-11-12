@@ -62,7 +62,7 @@ export class ReminderComponent implements OnInit {
 
   findTimeDate() {
     var t = this.reminder.timestamp;
-    if (!this.isDST(new Date())) {
+    if (this.isDST(new Date())) {
       t = t - 1000 * 60 * 60;
     }
     return this.datepipe.transform(new Date(t), 'd MMM yyyy h:mm a');

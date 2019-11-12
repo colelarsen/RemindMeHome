@@ -44,7 +44,7 @@ export class ReminderEditComponent implements OnInit {
     }
     else {
       var timestamp = this.reminder.timestamp;
-      if (!this.isDST(new Date())) {
+      if (this.isDST(new Date())) {
         timestamp -= 1000 * 60 * 60;
       }
       this.curDate = new Date(timestamp);
@@ -79,7 +79,7 @@ export class ReminderEditComponent implements OnInit {
   updateReminder() {
     // console.log(this.reminderForm.value);
     let timestamp = new Date(this.reminderForm.value.date + " " + this.reminderForm.value.time).getTime();
-    if (!this.isDST(new Date())) {
+    if (this.isDST(new Date())) {
       timestamp += 1000 * 60 * 60;
     }
     let newReminder = { ...this.reminder };
@@ -99,7 +99,7 @@ export class ReminderEditComponent implements OnInit {
 
   public addReminder() {
     let timestamp = new Date(this.reminderForm.value.date + " " + this.reminderForm.value.time).getTime();
-    if (!this.isDST(new Date())) {
+    if (this.isDST(new Date())) {
       timestamp += 1000 * 60 * 60;
     }
     console.log(timestamp);
