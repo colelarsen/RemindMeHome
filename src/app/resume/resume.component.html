@@ -194,11 +194,15 @@
                     <h6>Remind Me Bot & RemindMeHome.com</h6>
                     <p>Developed a chat bot using Node.js and the Discord API that could monitor conversations, edit text, and
                         remind users of a text/image at a given time. Remindmehome.com allows anyone to view the reminders
-                        currently being tracked by Remind me Bot, add reminders, and edit reminders. Remindmehome.com was
-                        created through Angular and on an Amazon EC2 linux server running an nginx web server. The
-                        <a class="nav-item" routerLink="../reminder">Reminder</a> functionality works through a public web API also running on the EC2 server. This web
-                        api was made through Spring Boot. The database is an AWS Dynamodb. I used a NoSQL database because
-                        it it lightweight and I do not have relationships.
+                        currently being tracked by Remind me Bot. Create an account to add and edit your own reminders. Remindmehome's
+                        front end was created through Angular and bootstrap. The backend uses microservices running on an
+                        Amazon EC2 server. There are 3 different microservices working together. The
+                        <a class="nav-item" routerLink="../reminder">Reminder</a> functionality works through the User microservice and the Reminder microservice. These
+                        microservices were made using Spring Boot and the database is an AWS Dynamodb. I used a NoSQL database
+                        because it is lightweight and there are complex relationships between objects. Account action is
+                        secured though an Auth Key generated every time a user logs in. This key is passed to the Reminder
+                        microservice who checks with the User microservice to validate the username and auth key have a valid
+                        match. This allows authentication and security with microservices.
                     </p>
                     <ul>
                         <li>
@@ -212,6 +216,12 @@
                         </li>
                         <li>
                             Microservice experience
+                        </li>
+                        <li>
+                            User account management experience
+                        </li>
+                        <li>
+                            Auth Key experience
                         </li>
                         <li>
                             TypeScript experience
