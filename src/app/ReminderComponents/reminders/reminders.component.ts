@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reminder } from '../../models/Reminder';
 import { ReminderService } from '../../reminder.service';
-import { FormGroup, Validators, FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-reminders',
@@ -17,7 +16,7 @@ export class RemindersComponent implements OnInit {
 
   addReminderBtn: boolean = false;
 
-  constructor(private reminderService: ReminderService) { }
+  constructor(private reminderService: ReminderService, private userService: UserService) { }
 
   ngOnInit() {
     this.getReminders();
@@ -37,6 +36,11 @@ export class RemindersComponent implements OnInit {
         this.errMessage = err.message;
       }
     );
+  }
+
+  addReminderDisabled()
+  {
+    return !this.userService.isLoggedIn();
   }
 
   updateReminderEvent(event) {

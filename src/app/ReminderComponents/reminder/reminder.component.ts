@@ -3,6 +3,8 @@ import { Reminder } from '../../models/Reminder';
 import { ReminderService } from '../../reminder.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '../../../../node_modules/@angular/common';
+import { UserService } from '../../user.service';
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-reminder',
@@ -13,20 +15,16 @@ export class ReminderComponent implements OnInit {
 
   @Input() reminder: Reminder;
   @Output() updateReminderEmitter: EventEmitter<String> = new EventEmitter<String>();
+  user: User;
 
   showEdit: boolean = false;
-  reminderForm: FormGroup;
-  usernameForDeletion:string = "";
 
+  constructor(private reminderService: ReminderService, public datepipe: DatePipe, private userService: UserService) { }
+  deleteReminder() {
+    this.reminder.username = this.user.reminderUsername;
+    this.reminder.userID = this.user.reminderUserId;
+    this.reminder.authKey = this.user.authKey;
 
-  info: string;
-  date: Date;
-  time: number;
-
-
-  constructor(private reminderService: ReminderService, public datepipe: DatePipe) { }
-  deleteReminder(username) {
-    this.reminder.username = username;
     this.reminderService.deleteReminder(this.reminder).subscribe(
       res => {
         this.updateReminderEmitter.emit("");
@@ -38,38 +36,36 @@ export class ReminderComponent implements OnInit {
     );
   }
 
-  updateReminderEvent(event)
+  canEditDelete()
   {
-    if(event.length == 0)
-    {
+    return this.reminder.ownerUsername == this.user.username && this.userService.isLoggedIn();
+  }
+
+  updateReminderEvent(event) {
+    if (event.length == 0) {
       this.showEdit = false;
       this.updateReminderEmitter.emit(event);
     }
-    else
-    {
+    else {
       this.updateReminderEmitter.emit(event);
     }
   }
 
-  findTimeDate()
-  {
+  
+
+  ngOnInit() {
+    this.user = this.userService.getUser();
+  }
+
+
+
+  findTimeDate() {
     var t = this.reminder.timestamp;
-    if(!this.isDST(new Date()))
-    {
-      t = t - 1000*60*60;
+    if (!this.isDST(new Date())) {
+      t = t - 1000 * 60 * 60;
     }
     return this.datepipe.transform(new Date(t), 'd MMM yyyy h:mm a');
   }
-
-  ngOnInit() {
-    this.info = this.reminder.info;    
-    this.reminderForm = new FormGroup({
-      'info': new FormControl(this.info, [Validators.required]),
-      'date': new FormControl(this.date, [Validators.required]),
-      'time': new FormControl(this.time, [Validators.required])
-    });
-  }
-
   isDST(d) {
     let jan = new Date(d.getFullYear(), 0, 1).getTimezoneOffset();
     let jul = new Date(d.getFullYear(), 6, 1).getTimezoneOffset();

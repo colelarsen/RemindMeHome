@@ -3,15 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RemindersComponent } from './reminders/reminders.component';
+import { RemindersComponent } from './ReminderComponents/reminders/reminders.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReminderComponent } from './reminder/reminder.component';
-import { ReminderEditComponent } from './reminder-edit/reminder-edit.component';
+import { ReminderComponent } from './ReminderComponents/reminder/reminder.component';
+import { ReminderEditComponent } from './ReminderComponents/reminder-edit/reminder-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { YugiohScraperComponent } from './yugioh-scraper/yugioh-scraper.component';
 import { ResumeComponent } from './resume/resume.component';
 import { DatePipe } from '../../node_modules/@angular/common';
+import { LoginComponent } from './AccountComponents/login/login.component';
+import { CreateAccountComponent } from './AccountComponents/create-account/create-account.component';
+import { ViewAccountComponent } from './AccountComponents/view-account/view-account.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { DatePipe } from '../../node_modules/@angular/common';
     ReminderEditComponent,
     HomeComponent,
     YugiohScraperComponent,
-    ResumeComponent
+    ResumeComponent,
+    LoginComponent,
+    CreateAccountComponent,
+    ViewAccountComponent
   ],
   imports: [
     BrowserModule,

@@ -7,10 +7,10 @@
     <div class="col-3 my-auto">
         <div class="row">
             <div class="col-6">
-                <button class="btn btn-primary" (click)="showEdit = !showEdit">Edit</button>
+                <button class="btn btn-primary" [disabled]="!canEditDelete()" (click)="showEdit = !showEdit">Edit</button>
             </div>
             <div class="col-6">
-                <button class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#deleteModal'+reminder.id">Delete</button>
+                <button class="btn btn-primary" [disabled]="!canEditDelete()" data-toggle="modal" [attr.data-target]="'#deleteModal'+reminder.id">Delete</button>
             </div>
         </div>
     </div>
@@ -42,15 +42,11 @@
                     <div class="form-group">
                         <label>{{reminder.info}}</label>
                     </div>
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input class="form-control" [(ngModel)]="usernameForDeletion" type="text">
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" (click)="deleteReminder(usernameForDeletion)" data-dismiss="modal" class="btn btn-primary" [disabled]="usernameForDeletion.length==0">Delete</button>
+                <button type="button" (click)="deleteReminder()" data-dismiss="modal" class="btn btn-primary">Delete</button>
             </div>
         </div>
     </div>

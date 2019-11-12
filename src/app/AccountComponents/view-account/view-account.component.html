@@ -1,0 +1,25 @@
+<div class="container">
+    <br>
+    <p class="text-danger">{{errMessage}}</p>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <label class="form-control">{{user.username}}</label>
+            </div>
+            <div class="form-group">
+                <label for="reminderUsername">Reminder Username</label>
+                <label class="form-control">{{user.reminderUsername}}</label>
+            </div>
+            <div class="form-group">
+                <label for="reminderUserId">Reminder Id</label>
+                <label class="form-control">{{user.reminderUserId}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 offset-md-3">
+            <button class="btn btn-primary" (click)="logout()">Log Out</button>
+        </div>
+    </div>
+</div>

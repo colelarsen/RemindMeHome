@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemindersComponent } from './reminders.component';
+import { ViewAccountComponent } from './view-account.component';
 
-describe('RemindersComponent', () => {
-  let component: RemindersComponent;
-  let fixture: ComponentFixture<RemindersComponent>;
+describe('ViewAccountComponent', () => {
+  let component: ViewAccountComponent;
+  let fixture: ComponentFixture<ViewAccountComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemindersComponent ]
+      declarations: [ ViewAccountComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RemindersComponent);
+    fixture = TestBed.createComponent(ViewAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,13 +8,19 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <p>Reminders have to have a username and user id. You can post/edit reminders without a valid username
-                            but they will not be sent to an invalid user id / username pair. This is to allow people who
-                            want to test the web api to be able to change the database without effecting regular users. Attachment
-                            is an optional field for urls, not uploading images.</p>
+                        <p>Below you can see all the reminders added by all users. To interact with reminders you must be logged
+                            in. Only the owner of reminders can send PUT/DELETE requests for the respected reminder. If you
+                            use a tool such as Postman you can try and update or delete other people's reminders but you
+                            must have the Auth Key assigned to the user upon logging in. This key is stored in local storage
+                            for ease of access. If they log in on another device the old key becomes invalid and will log
+                            them out when used. The account page is also auth protected with this Auth Key.</p>
+                        <p>Account passwords are MD5 encrypted with a salt so the hash is non reversable. These hashes are only
+                            sent to the microservice and are never sent back to the client. This ensures if there was ever
+                            a data leak the password itself would never be revealed, though the account on this site would
+                            still be compromised.</p>
                     </div>
                     <div>
-                        <button class="btn btn-primary" (click)="addReminderBtn = !addReminderBtn">Add Reminder</button>
+                        <button class="btn btn-primary" [disabled]="addReminderDisabled()" (click)="addReminderBtn = !addReminderBtn">Add Reminder</button>
                     </div>
                     <div *ngIf="addReminderBtn">
                         <div>

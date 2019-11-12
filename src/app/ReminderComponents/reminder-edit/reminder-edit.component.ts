@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '../../../../node_modules/@an
 import { ReminderService } from '../../reminder.service';
 import { DatePipe } from '../../../../node_modules/@angular/common';
 import { Reminder } from '../../models/Reminder';
+import { User } from '../../models/User';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-reminder-edit',
@@ -20,23 +22,22 @@ export class ReminderEditComponent implements OnInit {
 
   reminderForm: FormGroup;
 
-  constructor(private reminderService: ReminderService, public datepipe: DatePipe) { }
+  user: User;
+
+  constructor(private userService: UserService, private reminderService: ReminderService, public datepipe: DatePipe) { }
 
   ngOnInit() {
+
     this.reminder = { ...this.reminder };
     this.date = this.datepipe.transform(this.curDate, "yyyy-MM-dd");
     this.time = this.datepipe.transform(this.curDate, "HH:mm:ss");
 
-    console.log(this.date, this.time);
-
     if (this.reminder.id == undefined) {
       this.isUpdating = false;
-      this.reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined);
+      this.reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
       this.reminderForm = new FormGroup({
         'info': new FormControl(this.reminder.info, [Validators.required]),
-        'username': new FormControl(this.reminder.info, [Validators.required]),
-        'userId': new FormControl(this.reminder.info, [Validators.required]),
-        'attachment': new FormControl(this.reminder.info, []),
+        'attachment': new FormControl(this.reminder.attachment, []),
         'date': new FormControl(this.date, [Validators.required]),
         'time': new FormControl(this.time, [Validators.required])
       });
@@ -52,7 +53,6 @@ export class ReminderEditComponent implements OnInit {
       this.reminderForm = new FormGroup({
         'info': new FormControl(this.reminder.info, [Validators.required]),
         'attachment': new FormControl(this.reminder.attachment, []),
-        'username': new FormControl(this.reminder.info, [Validators.required]),
         'date': new FormControl(this.date, [Validators.required]),
         'time': new FormControl(this.time, [Validators.required])
       });
@@ -60,11 +60,19 @@ export class ReminderEditComponent implements OnInit {
   }
 
   sendReminder() {
-    if (!this.isUpdating) {
-      this.addReminder();
-    }
-    else {
-      this.updateReminder();
+    if (this.userService.isLoggedIn()) {
+      this.user = this.userService.getUser();
+      this.reminder.username = this.user.reminderUsername;
+      this.reminder.userID = this.user.reminderUserId;
+      this.reminder.authKey = this.user.authKey;
+      this.reminder.ownerUsername = this.user.username;
+      
+      if (!this.isUpdating) {
+        this.addReminder();
+      }
+      else {
+        this.updateReminder();
+      }
     }
   }
 
@@ -84,7 +92,7 @@ export class ReminderEditComponent implements OnInit {
         this.updateReminderEmitter.emit("");
       },
       err => {
-        this.updateReminderEmitter.emit("Failed to add reminder: " + err.error.failureMessage);
+        this.updateReminderEmitter.emit("Failed to update reminder: " + err.error.failureMessage);
       }
     );
   }

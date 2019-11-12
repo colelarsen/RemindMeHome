@@ -11,9 +11,9 @@ export class ReminderService {
   private getCurWeb() : string
   {
     const publicWeb = "http://remindmehome.com/reminders/";
-    const localWeb = "http://localhost:3050/";
-    // return localWeb;
-    return publicWeb;
+    const localWeb = "http://localhost:3051/";
+    return localWeb;
+    // return publicWeb;
   }
   
 
