@@ -24,7 +24,7 @@ export class ReminderEditComponent implements OnInit {
 
   user: User;
 
-  constructor(private userService: UserService, private reminderService: ReminderService, public datepipe: DatePipe) { }
+  constructor(public userService: UserService, private reminderService: ReminderService, public datepipe: DatePipe) { }
 
   ngOnInit() {
 
