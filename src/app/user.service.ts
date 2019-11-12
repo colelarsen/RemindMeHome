@@ -24,6 +24,7 @@ export class UserService {
       var localUser = JSON.parse(localStorage.getItem("user"));
       if (localUser != undefined) {
         this.user = { ...localUser };
+        this.validateAuth(this.user);
       }
       else {
         this.user = new User(undefined, undefined, undefined, undefined, undefined, undefined);

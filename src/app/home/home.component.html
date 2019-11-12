@@ -21,11 +21,11 @@
                 <h4>About This Website</h4>
             </div>
             <div class="text-center">
-                <p>This website and all custom functionality was developed entirely by me. The webserver hosting this website
-                    is a nginx server running on an AWS EC2 server. The front end of this website was made using Angular
-                    with Bootstrap. The page you are currently seeing has no backend but you can check out the
+                <p>This website and all functionality was developed solely by me. The webserver hosting this website is a nginx
+                    server running on an AWS EC2 server. The front end of this website was made using Angular with Bootstrap.
+                    The page you are currently seeing has no backend but you can check out the
                     <a class="nav-item" routerLink="reminder">Reminders</a>
-                    page if you want to see a microservice in action. This page is also mobile friendly!</p>
+                    page if you want to see microservices in action. This page is also mobile friendly!</p>
             </div>
             <div class="text-center">
                 <h6>Software Used</h6>
@@ -71,12 +71,14 @@
                 </div>
             </div>
             <div class="row">
-                The "Reminders" page was made for a microservice that I developed. This page allows users of a group chat to submit and edit
-                reminders. The microservice that handles these requests is hosted on the same EC2 server that this webserver
-                is running on. The microservice handles the requests and interacts with a DynamoDB NoSQL database. The users
-                are reminded by a chat bot created with discord.js. The chat bot interacts with the same microservice to
-                request reminders and when the time expires it sends the user a message and deletes the reminder! The microservice
-                is a Spring Boot application that validates and secures requests.
+                The "Reminders" page was made for a chat bot that I developed. This page allows users of a group chat to submit and edit
+                reminders. The microservices that handle these requests are hosted on the same EC2 server that this webserver
+                is running on. The microservices handle the requests and interact with a DynamoDB NoSQL database. The users
+                are reminded by a chat bot created with discord.js. The chat bot interacts with the same microservices to
+                request reminders and when the time expires it sends the user a message! There are two microservices running
+                to control the functionality of this page and the user accounts. One microservice handles user login / account
+                creation / authorization. The other microservice handles get/put/post requests dealing with reminders. They
+                work in tandem to ensure only authenticated users can change the reminders they own.
             </div>
             <br>
             <div class="row">
