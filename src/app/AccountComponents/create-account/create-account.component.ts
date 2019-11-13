@@ -12,7 +12,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class CreateAccountComponent implements OnInit {
 
-  constructor(private userService: UserService, private router:Router) { }
+  constructor(private userService: UserService, private router: Router) { }
   SALT = "LFJKGSjsakf";
   password: string;
   password2: string;
@@ -36,34 +36,33 @@ export class CreateAccountComponent implements OnInit {
     if (this.password != this.password2) {
       this.errMessage = "Passwords do not match";
     }
+    else if (!this.validatePassword(this.password)) {
+      this.errMessage = "Passwords must be longer than 5 characters and include at least 1 number.";
+    }
     else {
-      if (!this.validatePassword(this.password)) {
-        this.errMessage = "Passwords must be longer than 5 characters and include at least 1 number.";
-      }
-      else {
-        this.errMessage = undefined;
-        var passwordEncrypted = CryptoJS.MD5(this.password).toString() + this.SALT;
-        var user = new User(this.username, undefined, passwordEncrypted, this.reminderUsername, this.reminderUserId, undefined);
-        this.userService.createAccount(user)
-          .subscribe(
-            userResp => {
-              this.userService.setUser(userResp);
-              localStorage.setItem("user", JSON.stringify(userResp));
-              this.router.navigateByUrl("/reminder");
-            },
-            error => {
-              console.log(error);
-              if (error.error != undefined) {
-                this.errMessage = error.error.failureMessage;
-              }
-              else {
-                this.errMessage = error.message;
-              }
+      this.errMessage = undefined;
+      var passwordEncrypted = CryptoJS.MD5(this.password).toString() + this.SALT;
+      var user = new User(this.username, undefined, passwordEncrypted, this.reminderUsername, this.reminderUserId, undefined);
+      this.userService.createAccount(user)
+        .subscribe(
+          userResp => {
+            this.userService.setUser(userResp);
+            localStorage.setItem("user", JSON.stringify(userResp));
+            this.router.navigateByUrl("/reminder");
+          },
+          error => {
+            console.log(error);
+            if (error.error != undefined) {
+              this.errMessage = error.error.failureMessage;
             }
-          );
-      }
+            else {
+              this.errMessage = error.message;
+            }
+          }
+        );
     }
   }
+
 
   validatePassword(password: string) {
     var passRegEx = new RegExp('.*[0-9]+.*');

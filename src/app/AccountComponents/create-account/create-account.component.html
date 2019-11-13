@@ -7,22 +7,40 @@
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input class="form-control" [(ngModel)]="username" type="text" formControlName="username">
+                    <div *ngIf="!createAccountForm.get('username').valid && createAccountForm.get('username').touched">
+                        <p class="text-danger">Username is required.</p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input class="form-control" [(ngModel)]="password" type="password" formControlName="password">
+                    <div *ngIf="!createAccountForm.get('password').valid && createAccountForm.get('password').touched">
+                        <p class="text-danger">Password is required, must be 6+ characters and contain at least 1 number.</p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="password2">Verify Password</label>
                     <input class="form-control" [(ngModel)]="password2" type="password" formControlName="password2">
+                    <div *ngIf="!createAccountForm.get('password2').valid && createAccountForm.get('password2').touched">
+                        <p class="text-danger">Verified password is required, must be 6+ characters and contain at least 1 number.</p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="reminderUsername">Username for Reminders</label>
                     <input class="form-control" [(ngModel)]="reminderUsername" type="text" formControlName="reminderUsername">
+                    <div *ngIf="!createAccountForm.get('reminderUsername').valid && createAccountForm.get('reminderUsername').touched">
+                        <p class="text-danger">Reminder Username is required. This should be your Discord username, or any string if you do not
+                            intend to use the reminder functionality.</p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="reminderUserId">User Id for Reminders</label>
-                    <input class="form-control" [(ngModel)]="reminderUserId" type="text" formControlName="reminderUserId">
+                    <input class="form-control" [(ngModel)]="reminderUserId" type="number" formControlName="reminderUserId">
+                    <div *ngIf="!createAccountForm.get('reminderUserId').valid && createAccountForm.get('reminderUserId').touched">
+                        <p class="text-danger">User Id is required. This should be your Discord id, or any string if you do not intend to use the
+                            reminder functionality. The command "get id" will send you your id as long as RemindMeBot is
+                            in the channel.</p>
+                    </div>
                 </div>
                 <button [disabled]="!createAccountForm.valid" class="btn btn-primary" (click)="createAccount()">Create Account</button>
             </form>

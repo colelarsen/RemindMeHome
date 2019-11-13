@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 input.ng-valid{
-    border-left: 1px solid green;
+    border-left: 2px solid green;
 }
 
 input.ng-invalid{
-    border-left: 1px solid red;
+    border-left: 2px solid red;
+}
+
+input.ng-invalid.ng-untouched{
+    border-left: 2px solid orange;
 }
