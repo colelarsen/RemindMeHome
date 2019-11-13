@@ -62,6 +62,7 @@ export class RemindersTypedComponent implements OnInit {
       var d = new Date();
       this.reminders = this.reminders.filter(rem => rem.timestamp <= d.getTime());
     }
+    this.reminders = this.reminders.sort( (a, b) => a.timestamp - b.timestamp);
   }
 
   addReminderDisabled() {
