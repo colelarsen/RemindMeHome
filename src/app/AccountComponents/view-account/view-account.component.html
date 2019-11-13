@@ -1,22 +1,36 @@
 <div class="container">
     <br>
-    <p class="text-danger">{{errMessage}}</p>
+    <p class="text-danger text-center">{{errMessage}}</p>
+    <p class="text-success text-center">{{successMessage}}</p>
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="form-group">
                 <label for="username">Username</label>
                 <label class="form-control">{{user.username}}</label>
             </div>
-            <div class="form-group">
-                <label for="reminderUsername">Reminder Username</label>
-                <label class="form-control">{{user.reminderUsername}}</label>
-            </div>
-            <div class="form-group">
-                <label for="reminderUserId">Reminder Id</label>
-                <label class="form-control">{{user.reminderUserId}}</label>
-            </div>
+            <form [formGroup]="updateAccountForm">
+                <div class="form-group">
+                    <label for="reminderUsername">Username for Reminders</label>
+                    <input class="form-control" [(ngModel)]="reminderUsername" type="text" formControlName="reminderUsername">
+                    <div *ngIf="!updateAccountForm.get('reminderUsername').valid && updateAccountForm.get('reminderUsername').touched">
+                        <p class="text-danger">Reminder Username is required. This should be your Discord username, or any string if you do not
+                            intend to use the reminder functionality.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reminderUserId">User Id for Reminders</label>
+                    <input class="form-control" [(ngModel)]="reminderUserId" type="number" formControlName="reminderUserId">
+                    <div *ngIf="!updateAccountForm.get('reminderUserId').valid && updateAccountForm.get('reminderUserId').touched">
+                        <p class="text-danger">User Id is required. This should be your Discord id, or any string if you do not intend to use the
+                            reminder functionality. The command "get id" will send you your id as long as RemindMeBot is
+                            in the channel.</p>
+                    </div>
+                </div>
+                <button [disabled]="!updateAccountForm.valid" class="btn btn-primary" (click)="updateAccount()">Update Account</button>
+            </form>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md-3 offset-md-3">
             <button class="btn btn-primary" (click)="logout()">Log Out</button>

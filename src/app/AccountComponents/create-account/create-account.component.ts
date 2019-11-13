@@ -19,9 +19,9 @@ export class CreateAccountComponent implements OnInit {
   username: string;
   reminderUsername: string;
   reminderUserId: string;
-  createAccountForm: FormGroup;
   errMessage: string;
 
+  createAccountForm: FormGroup;
   ngOnInit() {
     this.createAccountForm = new FormGroup({
       'username': new FormControl(this.username, [Validators.required]),

@@ -2,43 +2,23 @@
     <br>
     <div class="row">
         <div class="col-md-10 offset-md-1">
-            <div class="card border border-primary">
-                <div class="card-header bg-primary text-light">
-                    Reminders
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <p>Below you can see all the reminders added by all users. To interact with reminders you must be logged
-                            in. Only the owner of reminders can send PUT/DELETE requests for the respected reminder. If you
-                            use a tool such as Postman you can try and update or delete other people's reminders but you
-                            must have the Auth Key assigned to the user upon logging in. This key is stored in local storage
-                            for ease of access. If they log in on another device the old key becomes invalid and will log
-                            them out when used. The account page is also auth protected with this Auth Key.</p>
-                        <p>Account passwords are MD5 encrypted (a non reversable hash function) with a salt. This ensures if
-                            there was ever a data leak the password itself would never be revealed, as it is not stored anywhere,
-                            though the account on this site would still be compromised. The salt protects from other data
-                            leaks by adding some randomness to the password that is stored, preventing Rainbow Tables (lookup
-                            tables). These hashes are only sent to the microservice on login and account creation and are never
-                            sent back to the client. All other actions are authorized by using the Auth Key provided to the
-                            user on login.</p>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary" [disabled]="addReminderDisabled()" (click)="addReminderBtn = !addReminderBtn">Add Reminder</button>
-                    </div>
-                    <div *ngIf="addReminderBtn">
-                        <div>
-                            <app-reminder-edit (updateReminderEmitter)="addReminderEvent($event)"></app-reminder-edit>
-                        </div>
-                    </div>
-                    <div class="text-center text-danger" *ngIf="errMessage.length>0">
-                        <p>{{errMessage}}</p>
-                    </div>
-                    <div *ngFor="let reminder of reminders">
-                        <app-reminder [reminder]="reminder" (updateReminderEmitter)="updateReminderEvent($event)"></app-reminder>
-                        <br>
-                    </div>
-                </div>
-            </div>
+            <mat-tab-group mat-align-tabs="center">
+                <mat-tab label="All Reminders">
+                    <ng-template matTabContent>
+                        <app-reminders-typed [reminderType]="'all'" [pageDescription]="allRemindersDesc"></app-reminders-typed>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="Your Reminders">
+                    <ng-template matTabContent>
+                        <app-reminders-typed [reminderType]="'self'" [pageDescription]="yourRemindersDesc"></app-reminders-typed>
+                    </ng-template>
+                </mat-tab>
+                <mat-tab label="Your Expired Reminders">
+                    <ng-template matTabContent>
+                        <app-reminders-typed [reminderType]="'self old'" [pageDescription]="yourRemindersExpiredDesc"></app-reminders-typed>
+                    </ng-template>
+                </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
 </div>

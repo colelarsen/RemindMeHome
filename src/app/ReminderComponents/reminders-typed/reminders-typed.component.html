@@ -1,0 +1,22 @@
+<div class="col-md-11 offset-md-0.5">
+    <div class="text-center" *ngFor="let desc of pageDescription">
+        {{desc}}
+    </div>
+    <br>
+
+    <div>
+        <button class="btn btn-primary" [disabled]="addReminderDisabled()" (click)="addReminderBtn = !addReminderBtn">Add Reminder</button>
+    </div>
+    <div *ngIf="addReminderBtn">
+        <div>
+            <app-reminder-edit (updateReminderEmitter)="addReminderEvent($event)"></app-reminder-edit>
+        </div>
+    </div>
+    <div class="text-center text-danger" *ngIf="errMessage.length>0">
+        <p>{{errMessage}}</p>
+    </div>
+    <div *ngFor="let reminder of reminders">
+        <app-reminder [reminder]="reminder" (updateReminderEmitter)="updateReminderEvent($event)"></app-reminder>
+        <br>
+    </div>
+</div>

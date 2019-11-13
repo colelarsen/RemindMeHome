@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {MatTabsModule} from '@angular/material'
+import { AngularMaterialModule } from './angular-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RemindersComponent } from './ReminderComponents/reminders/reminders.component';
@@ -15,6 +16,8 @@ import { DatePipe } from '../../node_modules/@angular/common';
 import { LoginComponent } from './AccountComponents/login/login.component';
 import { CreateAccountComponent } from './AccountComponents/create-account/create-account.component';
 import { ViewAccountComponent } from './AccountComponents/view-account/view-account.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RemindersTypedComponent } from './ReminderComponents/reminders-typed/reminders-typed.component';
 
 @NgModule({
   declarations: [
@@ -27,16 +30,20 @@ import { ViewAccountComponent } from './AccountComponents/view-account/view-acco
     ResumeComponent,
     LoginComponent,
     CreateAccountComponent,
-    ViewAccountComponent
+    ViewAccountComponent,
+    RemindersTypedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   providers: [DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

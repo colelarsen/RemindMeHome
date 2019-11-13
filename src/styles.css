@@ -10,3 +10,9 @@ input.ng-invalid{
 input.ng-invalid.ng-untouched{
     border-left: 2px solid orange;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.modal-backdrop {
+    z-index: -1;
+}

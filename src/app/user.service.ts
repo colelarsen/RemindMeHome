@@ -62,6 +62,7 @@ export class UserService {
       err => {
         console.log(err);
         this.setUser(new User(undefined, undefined, undefined, undefined, undefined, undefined));
+        localStorage.removeItem("user");
         this.router.navigateByUrl("/home");
       }
     );
@@ -69,5 +70,9 @@ export class UserService {
 
   public createAccount(user: User) {
     return this.http.post<User>(this.getCurWeb() + "create-account/", user);
+  }
+
+  public updateAccount(user: User) {
+    return this.http.put<User>(this.getCurWeb() + "update-account/", user);
   }
 }
