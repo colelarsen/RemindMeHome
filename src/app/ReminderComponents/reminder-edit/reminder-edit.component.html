@@ -24,5 +24,9 @@
             <p class="text-danger">Time is required and must be in the future.</p>
         </div>
     </div>
+    <div class="form-check">
+        <input class="form-check-input" [(ngModel)]="reminder.isPrivate" type="checkbox" formControlName="isPrivate">
+        <label for="isPrivate" class="form-check-label">Is Private</label>
+    </div>
     <button [disabled]="!reminderForm.valid || !userService.isLoggedIn()" class="btn btn-primary" (click)="sendReminder()">Submit</button>
 </form>

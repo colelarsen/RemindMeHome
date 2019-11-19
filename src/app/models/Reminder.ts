@@ -3,5 +3,6 @@ export class Reminder {
         public username: string, public userID: string, 
         public attachment: string, public id: string,
         public successMessage: string, failureMessage: string,
-        public authKey: string, public ownerUsername) { }
+        public authKey: string, public ownerUsername: string,
+        public isPrivate: boolean) { }
 }

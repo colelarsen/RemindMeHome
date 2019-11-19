@@ -34,12 +34,13 @@ export class ReminderEditComponent implements OnInit {
 
     if (this.reminder.id == undefined) {
       this.isUpdating = false;
-      this.reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      this.reminder = new Reminder(undefined, 0, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, false);
       this.reminderForm = new FormGroup({
         'info': new FormControl(this.reminder.info, [Validators.required]),
         'attachment': new FormControl(this.reminder.attachment, []),
         'date': new FormControl(this.date, [Validators.required]),
-        'time': new FormControl(this.time, [Validators.required])
+        'time': new FormControl(this.time, [Validators.required]),
+        'isPrivate': new FormControl(this.reminder.isPrivate, [])
       });
     }
     else {
@@ -54,7 +55,8 @@ export class ReminderEditComponent implements OnInit {
         'info': new FormControl(this.reminder.info, [Validators.required]),
         'attachment': new FormControl(this.reminder.attachment, []),
         'date': new FormControl(this.date, [Validators.required]),
-        'time': new FormControl(this.time, [Validators.required])
+        'time': new FormControl(this.time, [Validators.required]),
+        'isPrivate': new FormControl(this.reminder.isPrivate, [])
       });
     }
   }
@@ -102,7 +104,6 @@ export class ReminderEditComponent implements OnInit {
     if (this.isDST(new Date())) {
       timestamp += 1000 * 60 * 60;
     }
-    console.log(timestamp);
     this.reminder.timestamp = timestamp;
 
     this.reminderService.addReminder(this.reminder).subscribe(

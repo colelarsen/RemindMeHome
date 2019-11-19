@@ -22,47 +22,69 @@ export class RemindersTypedComponent implements OnInit {
   constructor(private reminderService: ReminderService, private userService: UserService) { }
 
   ngOnInit() {
-    this.getReminders();
+      this.getReminders();
   }
 
   public getReminders() {
-    this.reminderService.getReminders().subscribe(
-      res => {
-        let reqs = Object.keys(res);
-        this.reminders = [];
-        reqs.forEach(key => {
-          let req: Reminder = res[key];
-          this.reminders.push(req);
-        });
-        this.filterReminders();
-      },
-      err => {
-        this.errMessage = err.message;
-      }
-    );
+    if (this.reminderType.includes("self")) {
+      this.getUserReminders();
+    }
+    else
+    {
+      this.reminderService.getReminders().subscribe(
+        res => {
+          let reqs = Object.keys(res);
+          this.reminders = [];
+          reqs.forEach(key => {
+            let req: Reminder = res[key];
+            this.reminders.push(req);
+          });
+          this.filterReminders();
+        },
+        err => {
+          this.errMessage = err.message;
+        }
+      );
+    }
   }
 
-  filterReminders()
-  {
+  public getUserReminders() {
+    if (this.userService.isLoggedIn()) {
+      var user = this.userService.getUser();
+      this.reminderService.getUserReminders(user).subscribe(
+        res => {
+          let reqs = Object.keys(res);
+          this.reminders = [];
+          reqs.forEach(key => {
+            let req: Reminder = res[key];
+            this.reminders.push(req);
+            console.log(req);
+          });
+          this.filterReminders();
+        },
+        err => {
+          this.errMessage = err.message;
+        }
+      );
+    }
+  }
+
+  filterReminders() {
     console.log(this.reminderType);
-    if(this.reminderType.includes("self"))
-    {
-      if(this.userService.isLoggedIn())
-      {
+    if (this.reminderType.includes("self")) {
+      if (this.userService.isLoggedIn()) {
         var user = this.userService.getUser();
-        this.reminders = this.reminders.filter(rem => rem.ownerUsername==user.username);
+        // this.reminders = this.reminders.filter(rem => rem.ownerUsername==user.username);
       }
-      else
-      {
+      else {
         this.reminders = [];
       }
     }
-    if(this.reminderType.includes("old"))
-    {
+    if (this.reminderType.includes("old")) {
       var d = new Date();
       this.reminders = this.reminders.filter(rem => rem.timestamp <= d.getTime());
     }
-    this.reminders = this.reminders.sort( (a, b) => a.timestamp - b.timestamp);
+    this.reminders = this.reminders.sort((a, b) => a.timestamp - b.timestamp);
   }
 
   addReminderDisabled() {
@@ -91,5 +113,5 @@ export class RemindersTypedComponent implements OnInit {
   }
 
   @Input()
-  pageDescription:string[];
+  pageDescription: string[];
 }
