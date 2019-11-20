@@ -13,6 +13,8 @@ export class RemindersTypedComponent implements OnInit {
   @Input()
   reminderType: string;
 
+  showExpired:boolean = false;
+
   errMessage: string = "";
 
   reminders: Reminder[];
@@ -69,20 +71,30 @@ export class RemindersTypedComponent implements OnInit {
     }
   }
 
+  showExp()
+  {
+    this.showExpired = !this.showExpired;
+    this.getReminders();
+  }
+
   filterReminders() {
-    console.log(this.reminderType);
     if (this.reminderType.includes("self")) {
       if (this.userService.isLoggedIn()) {
         var user = this.userService.getUser();
-        // this.reminders = this.reminders.filter(rem => rem.ownerUsername==user.username);
       }
       else {
         this.reminders = [];
       }
     }
+
     if (this.reminderType.includes("old")) {
       var d = new Date();
       this.reminders = this.reminders.filter(rem => rem.timestamp <= d.getTime());
+    }
+    else if(!this.showExpired)
+    {
+      var d = new Date();
+      this.reminders = this.reminders.filter(rem => rem.timestamp >= d.getTime());
     }
     this.reminders = this.reminders.sort((a, b) => a.timestamp - b.timestamp);
   }
